@@ -13,13 +13,15 @@ import {
   DetailForm,
   LinkStyle,
 } from "./AuthenticationStyle";
-import { AccHeader, UserDiv } from "../customers/UsersDashboard";
-import { AccountMainHeader } from "../customers/AccountHeader";
+import { AccHeader, UserDiv } from "./UsersDashboard";
+import { AccountMainHeader } from "./AccountHeader";
+AccHeader
 // import { UserDiv } from "../customers/UsersDashboard";
+
 
 const Profile = () => {
   const { data, isError, error, isSuccess } = useGetUserProfileQuery();
-  console.log(data);
+  // console.log(data);
 
   //   const userInfo = useSelector((state) => state.auth.userInfo);
   //   if (userInfo === undefined) {

@@ -14,8 +14,8 @@ import {
 } from "./AuthenticationStyle";
 // import AccountMainHeader from "../customers/AccountHeader";
 
-import { AccHeader, UserDiv } from "../customers/UsersDashboard";
-import AccountHeader, { AccountMainHeader } from "../customers/AccountHeader";
+import { AccHeader, UserDiv } from "./UsersDashboard";
+import AccountHeader, { AccountMainHeader } from "./AccountHeader";
 
 const ChangePassword = () => {
   //   const userInfo = useSelector((state) =>
