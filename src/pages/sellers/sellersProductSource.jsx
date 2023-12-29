@@ -1,0 +1,58 @@
+export const SellersProductsApi = [
+  {
+    id: "1",
+    orderId: "First Product",
+    price: "$1000.00",
+    status: "published",
+    action: "category1",
+  },
+  {
+    id: "2",
+    orderId: "First Product",
+    price: "$1000.00",
+    status: "published",
+    action: "category2",
+  },
+  {
+    id: "3",
+    orderId: "First Product",
+    price: "$1000.00",
+    status: "not_published",
+    action: "category3",
+  },
+  {
+    id: "4",
+    orderId: "First Product",
+    price: "$1000.00",
+    status: "out_of_stock",
+    action: "category4",
+  },
+  {
+    id: "11",
+    orderId: "First Product",
+    price: "$1000.00",
+    status: "published",
+    action: "category1",
+  },
+  {
+    id: "21",
+    orderId: "First Product",
+    price: "$1000.00",
+    status: "published",
+    action: "category2",
+  },
+  {
+    id: "31",
+    orderId: "First Product",
+    price: "$1000.00",
+    status: "not_published",
+    action: "category3",
+  },
+  {
+    id: "41",
+    orderId: "First Product",
+    price: "$1000.00",
+    status: "out_of_stock",
+    action: "category1",
+  },
+];
