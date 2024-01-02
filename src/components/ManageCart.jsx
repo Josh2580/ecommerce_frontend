@@ -43,7 +43,7 @@ export const AddToCartHandler = ({ prodId, prodQty }) => {
       });
 
       if (newCartItemResult) {
-        navigate(`/cart/${cartId}`);
+        navigate(`/cart`);
       }
       console.log(newCartItemResult);
     } else {
@@ -53,9 +53,9 @@ export const AddToCartHandler = ({ prodId, prodQty }) => {
         id: cartInfo.cart_id,
       });
       if (cartItemResult) {
-        navigate(`/cart/${cartInfo.cart_id}`);
+        navigate(`/cart`);
       }
-      navigate(`/cart/${cartInfo.cart_id}`);
+      navigate(`/cart`);
       console.log(cartItemResult);
     }
   };

@@ -16,6 +16,7 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 const Header = () => {
   const [hamburger, setHamburger] = useState(true);
@@ -107,48 +108,60 @@ const Header = () => {
 
   return (
     <>
-      <Navbar expand="lg" sticky="top" className="bg-body-tertiary">
-        <Container fluid>
-          <Navbar.Brand href="/">LOGO</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <div className="d-flex flex-column gap-lg-2 flex-lg-row justify-content-end w-100">
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2 "
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
-              <Nav className=" my-2 my-lg-0" navbarScroll>
-                <Nav.Link href="/" className="ms-1">
-                  Home
-                </Nav.Link>
-                <NavDropdown
-                  className="ms-1"
-                  title="Account"
-                  id="navbarScrollingDropdown"
-                >
-                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
-                  </NavDropdown.Item>
-                </NavDropdown>
-
-                <Nav.Link href="/cart" className="ms-1">
-                  {" "}
-                  <BsCart className="headIcon" />
-                  <span className="mr-1">Cart</span>
-                </Nav.Link>
-              </Nav>
+      <Navbar
+        expand="md"
+        fixed="top"
+        className="bg-body-tertiary justify-content-center mx-auto"
+      >
+        <Container fluid="lg">
+          <div className="d-flex align-items-md-center justify-content-between w-100">
+            <div className="d-flex flex-column flex-md-row gap-1 align-items-md-center justify-content-md-between w-100">
+              <div className="d-flex align-items-md-center justify-content-md-between">
+                <Navbar.Toggle aria-controls="navbarScroll" />
+                <Navbar.Brand href="/">LOGO</Navbar.Brand>
+              </div>
+              <Navbar.Collapse id="navbarScroll">
+                <div className="d-flex flex-column gap-md-2 flex-md-row justify-content-end w-100">
+                  <Form className="d-flex align-items-center ">
+                    <Form.Control
+                      type="search"
+                      placeholder="Search"
+                      className="me-2 "
+                      aria-label="Search"
+                    />
+                    <Button variant="outline-success">Search</Button>
+                  </Form>
+                  <Nav className=" my-2 my-lg-0" navbarScroll>
+                    <NavDropdown
+                      className="ms-1 flex-row"
+                      title="Account"
+                      id="navbarScrollingDropdown"
+                      as="h6"
+                    >
+                      <NavDropdown.Item href="#action3">
+                        <h6>My Account</h6>
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action4">
+                        {" "}
+                        <h6>Orders</h6>
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item href="#action5">
+                        <h6>Logout</h6>
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </Nav>
+                </div>
+              </Navbar.Collapse>
             </div>
-          </Navbar.Collapse>
+            <Nav.Link href="/cart" className="ms-1 mt-2 mt-md-0">
+              {" "}
+              <div className="d-flex gap-1" style={{ color: "#171717" }}>
+                <BsCart className="headIcon" />
+                <h6 className="mr-1">Cart</h6>
+              </div>
+            </Nav.Link>
+          </div>
         </Container>
       </Navbar>
     </>

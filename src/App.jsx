@@ -56,7 +56,7 @@ const App = createBrowserRouter(
     >
       <Route index element={<HomePage />} />
       <Route element={<PrivateRoute />}>
-        <Route path="/checkout/:cartId" element={<CheckoutPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Route>
       <Route
         path="product/:productId/:catyId"
@@ -65,7 +65,7 @@ const App = createBrowserRouter(
       <Route path="category/:categoryId" element={<CategoryPage />} />
       <Route path="category/add" element={<AddCategoryPage />} />
 
-      <Route path="cart/:cartId" element={<CartPage />} />
+      <Route path="cart" element={<CartPage />} />
       <Route path="/order/success" element={<OrderDetails />} />
       <Route path="/store" element={<StorePage />} />
 

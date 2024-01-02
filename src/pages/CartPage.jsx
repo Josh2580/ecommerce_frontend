@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 import { SelectStyled } from "../components/select/Select";
 import { ButtonStyle } from "../components/myModules/Button";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,20 +20,23 @@ useGetCartItemsFromIdQuery;
 const CartPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { cartId } = useParams();
 
   // const userData = useSelector((state) => state.auth.userInfo || "");
   // console.log(userData);
   const { isToken, userState } = useSelector((state) => state.auth);
+  const { cartId } = useSelector((state) => state.cart);
 
   // console.log(userState, isToken);
 
-  const { data, isLoading, error } = useGetCartItemsFromIdQuery(cartId);
+  const state_cart_id = cartId.cart_id;
+  // console.log(state_cart_id);
+  const { data, isLoading, error } = useGetCartItemsFromIdQuery(state_cart_id);
+  // console.log(data);
   const {
     data: CartData,
     isLoading: CartIsLoading,
     error: CartError,
-  } = useGetCartByIdQuery(cartId);
+  } = useGetCartByIdQuery(state_cart_id);
   const [updateCartItemsApi] = useUpdateCartItemsMutation();
   const [updateCartApi, { data: cartOwnerData }] = useUpdateCartMutation();
   const [removeCartItem] = useRemoveCartItemsMutation();
@@ -50,11 +53,14 @@ const CartPage = () => {
     const formData = new FormData();
     formData.append("quantity", cart_updated);
 
-    console.log("item_id: ", item_id);
-    console.log("cart_updated: ", cart_updated);
+    // console.log("item_id: ", item_id);
+    // console.log("cart_updated: ", cart_updated);
 
-    updateCartItemsApi({ formData, cart_id: cartId, item_id: item_id });
+    updateCartItemsApi({ formData, cart_id: state_cart_id, item_id: item_id });
   };
+
+  //
+  //
   const formData = new FormData();
   formData.append("owner", "");
 
@@ -68,8 +74,8 @@ const CartPage = () => {
     if (CartData) {
       CartData.items.map((data) => {
         // console.log(data.product);
-        console.log(data);
-        navigate(`/checkout/${data.cart}`);
+        // console.log(data);
+        navigate(`/checkout`);
       });
     }
     toast(`Empty Cart !!!`);
@@ -100,8 +106,10 @@ const CartPage = () => {
             <p className="proAction">Action</p>
           </div>
           <div className="productsInfo ">
-            {CartData &&
-              CartData.items.map((prod, i) => (
+            {/* {CartData &&
+              CartData.items.map((prod, i) => ( */}
+            {data &&
+              data.map((prod, i) => (
                 <div className="eachProd" key={i}>
                   <div className="basicInfo">
                     <img src={prod.product.image} alt={prod.product.title} />

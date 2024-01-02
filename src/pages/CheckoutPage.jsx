@@ -65,8 +65,9 @@ import { userState } from "../source/storage/AuthSlice";
 // console.log("All Cities", City.getAllCities());
 
 const CheckoutPage = () => {
-  const { cartId } = useParams();
+  const { cartId } = useSelector((state) => state.cart);
   const navigate = useNavigate();
+  const state_cart_id = cartId.cart_id;
   const { data: userData } = useGetUserProfileQuery() || {};
   // console.log(userData.id);
 
@@ -74,7 +75,7 @@ const CheckoutPage = () => {
     data: CartItems,
     isLoading: CartIsLoading,
     error: CartError,
-  } = useGetCartByIdQuery(cartId);
+  } = useGetCartByIdQuery(state_cart_id);
   const [pay, { data: payData, isSuccess: paySuccess }] = usePayMutation();
 
   const [
@@ -142,7 +143,7 @@ const CheckoutPage = () => {
       event.stopPropagation();
       console.log("Some field empty");
     } else {
-      cartFormData.append("cart_id", cartId);
+      cartFormData.append("cart_id", state_cart_id);
       let orderNow = await createOrder({ formData: cartFormData });
       // createOrder({ formData: cartFormData });
       if (orderNow) {
