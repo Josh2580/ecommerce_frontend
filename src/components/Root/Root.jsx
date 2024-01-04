@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import styled from "styled-components";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Root = () => {
   return (
@@ -9,7 +10,9 @@ const Root = () => {
       <div>
         <Header />
         <div className="render">
-          <Outlet />
+          <Container fluid="lg" className="my-auto mt-3 pt-5">
+            <Outlet />
+          </Container>
         </div>
       </div>
       <h2>Footer This is the root component for Footer</h2>
