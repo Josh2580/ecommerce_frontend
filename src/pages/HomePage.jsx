@@ -23,15 +23,6 @@ const HomePage = () => {
     to: pageSize,
   });
 
-  // const handleChange = (event, page) => {
-  //   const from = (page - 1) * pageSize;
-  //   const to = (page - 1) * pageSize + pageSize;
-
-  //   setPagination({ ...pagination, from: from, to: to });
-
-  //   console.log(pagination.from, pagination.to);
-  // };
-
   // useEffect(() => {
   // {
   //   isSuccess &&
@@ -51,12 +42,6 @@ const HomePage = () => {
   //     });
   // }
   // }, [isSuccess, total]);
-
-  // var links = [];
-
-  // for (let i = 1, i <= total; i++){
-  //   links.push[<NavLink>{i}</NavLink>]
-  // }
 
   return (
     <div>

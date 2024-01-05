@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { BsCart } from "react-icons/bs";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
-import { HiBars3 } from "react-icons/hi2";
-import { LiaTimesSolid } from "react-icons/lia";
+import { IoSearch } from "react-icons/io5";
+
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa";
+
 import AccountHeader from "../../pages/Customers/AccountHeader";
 import MobileMenu from "./MobileMenu";
 import SellersHeader from "../../pages/sellers/SellersHeader";
@@ -17,6 +18,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { Row } from "react-bootstrap";
 
 const Header = () => {
   const [hamburger, setHamburger] = useState(true);
@@ -117,10 +119,20 @@ const Header = () => {
           <div className="d-flex align-items-md-center justify-content-between w-100">
             <div className="d-flex flex-column flex-md-row gap-1 align-items-md-center justify-content-md-between w-100">
               <div className="d-flex align-items-md-center justify-content-md-between">
-                <Navbar.Toggle aria-controls="navbarScroll" />
+                <Navbar.Toggle
+                  aria-controls="basic-navbar-nav"
+                  style={{
+                    border: "none", // Remove the border
+                    fontSize: "1rem", // Change the font size
+                    // backgroundColor: "blue", // Change the background color
+                    color: "white", // Change the text color
+                    paddingLeft: "0px",
+                    // padding: "10px", // Adjust padding for size
+                  }}
+                />
                 <Navbar.Brand href="/">LOGO</Navbar.Brand>
               </div>
-              <Navbar.Collapse id="navbarScroll">
+              <Navbar.Collapse id="basic-navbar-nav">
                 <div className="d-flex flex-column gap-md-2 flex-md-row justify-content-end w-100">
                   <Form className="d-flex align-items-center ">
                     <Form.Control
@@ -131,10 +143,17 @@ const Header = () => {
                     />
                     <Button variant="outline-success">Search</Button>
                   </Form>
+
                   <Nav className=" my-2 my-lg-0" navbarScroll>
                     <NavDropdown
-                      className="ms-1 flex-row"
-                      title="Account"
+                      className="ms-2 flex-row"
+                      // title="Account"
+                      title={
+                        <span>
+                          <FaRegUser size={20} className="me-2" />
+                          Account
+                        </span>
+                      }
                       id="navbarScrollingDropdown"
                       as="h6"
                     >
@@ -154,13 +173,20 @@ const Header = () => {
                 </div>
               </Navbar.Collapse>
             </div>
-            <Nav.Link href="/cart" className="ms-1 mt-2 mt-md-0">
-              {" "}
-              <div className="d-flex gap-1" style={{ color: "#171717" }}>
-                <BsCart className="headIcon" />
-                <h6 className="mr-1">Cart</h6>
-              </div>
-            </Nav.Link>
+            <div className="d-flex gap-3">
+              <Nav.Link href="#" className=" d-md-none mt-1">
+                <IoSearch size={20} color="#171717" />
+              </Nav.Link>
+              <Nav.Link href="/cart" className=" d-md-none mt-1">
+                <FaRegUser size={20} color="#171717" />
+              </Nav.Link>
+              <Nav.Link href="/cart" className="ms-1 mt-2 mt-md-0">
+                <div className="d-flex gap-1" style={{ color: "#171717" }}>
+                  <MdOutlineShoppingCart className="headIcon" size={20} />
+                  <h6 className="mr-1 d-none d-md-block">Cart</h6>
+                </div>
+              </Nav.Link>
+            </div>
           </div>
         </Container>
       </Navbar>
