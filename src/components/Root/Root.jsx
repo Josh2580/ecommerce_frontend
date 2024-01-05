@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import styled from "styled-components";
 import { Col, Container, Row } from "react-bootstrap";
+import Footer from "./Footer";
 
 const Root = () => {
   return (
@@ -10,12 +11,12 @@ const Root = () => {
       <div>
         <Header />
         <div className="render">
-          <Container fluid="lg" className="my-auto mt-3 pt-5">
+          <Container fluid="lg" className="my-auto mt-5 pt-3  pt-md-5 pt-lg-4 ">
             <Outlet />
           </Container>
         </div>
       </div>
-      <h2>Footer This is the root component for Footer</h2>
+      <Footer />
     </RootStyle>
   );
 };

@@ -1,110 +1,44 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
-import AccountHeader from "../../pages/Customers/AccountHeader";
-import MobileMenu from "./MobileMenu";
-import SellersHeader from "../../pages/sellers/SellersHeader";
 //
 //
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import { Row } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Form,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Modal,
+} from "react-bootstrap";
+import { useGetAllCategoryQuery } from "../../source/api/CategoryApi";
 
 const Header = () => {
-  const [hamburger, setHamburger] = useState(true);
-  const [menu, setMenu] = useState(true);
-  const [account, setAccount] = useState(false);
-  const [seller, setSeller] = useState(false);
+  const [show, setShow] = useState(false);
+  const { data } = useGetAllCategoryQuery() || [];
 
-  const MobileHeadHandler = (e) => {
-    let value = e.target.id;
-    // alert(value);
-    switch (value) {
-      case "mobile_head_menu":
-        setMenu(true);
-        setAccount(false);
-        setSeller(false);
-
-        break;
-
-      case "mobile_head_account":
-        setMenu(false);
-        setAccount(true);
-        setSeller(false);
-
-        break;
-
-      case "mobile_head_seller":
-        setMenu(false);
-        setAccount(false);
-        setSeller(true);
-
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const BurgerHandler = () => {
-    setHamburger(!hamburger);
-  };
-
-  const MobileNavigation = () => {
+  const CategoryList = () => {
     return (
-      <MobileNavigationStyle
-        translate={hamburger ? "-105%" : "0px"}
-        id="for_mobile_burger"
-      >
-        <MobileHead>
-          <SpanHead
-            borderbottom={menu ? "2px solid red" : "none"}
-            id="mobile_head_menu"
-            onClick={(e) => MobileHeadHandler(e)}
-          >
-            Menu
-          </SpanHead>
-          <SpanHead
-            borderbottom={account ? "2px solid red" : "none"}
-            id="mobile_head_account"
-            onClick={(e) => MobileHeadHandler(e)}
-          >
-            Account
-          </SpanHead>
-          <SpanHead
-            borderbottom={seller ? "2px solid red" : "none"}
-            id="mobile_head_seller"
-            onClick={(e) => MobileHeadHandler(e)}
-          >
-            Seller
-          </SpanHead>
-        </MobileHead>
-        {account && <AccountHeader onClick={BurgerHandler} />}
-        {seller && <SellersHeader onClick={BurgerHandler} />}
-
-        {menu && <MobileMenu onClick={BurgerHandler} />}
-      </MobileNavigationStyle>
-    );
-  };
-
-  const Navigation = () => {
-    return (
-      <NavigationStyle>
-        <NavLink>Home</NavLink>
-        <NavLink>Category's</NavLink>
-        <NavLink>About</NavLink>
-        <NavLink>Contact</NavLink>
-      </NavigationStyle>
+      <div className="d-flex gap-2 d-md-none flex-column">
+        <h6 className="fw-bold">Our Categories</h6>
+        {data &&
+          data.map((val) => (
+            <Nav.Link key={val.id} href={`/category/${val.id}`}>
+              {val.name}
+              <MdKeyboardArrowRight
+                size={20}
+                className="me-2"
+                color={"#7F8285"}
+              />
+            </Nav.Link>
+          ))}
+      </div>
     );
   };
 
@@ -112,10 +46,14 @@ const Header = () => {
     <>
       <Navbar
         expand="md"
+        // style={{ background: "#218B5A" }}
+        style={{ boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}
         fixed="top"
-        className="bg-body-tertiary justify-content-center mx-auto"
+        // data-bs-theme="dark"
+        className="bg-body-tertiary justify-content-center mx-auto "
+        // className="justify-content-center mx-auto"
       >
-        <Container fluid="lg">
+        <Container fluid="lg" style={{ background: "none" }}>
           <div className="d-flex align-items-md-center justify-content-between w-100">
             <div className="d-flex flex-column flex-md-row gap-1 align-items-md-center justify-content-md-between w-100">
               <div className="d-flex align-items-md-center justify-content-md-between">
@@ -124,10 +62,15 @@ const Header = () => {
                   style={{
                     border: "none", // Remove the border
                     fontSize: "1rem", // Change the font size
-                    // backgroundColor: "blue", // Change the background color
+
                     color: "white", // Change the text color
+
                     paddingLeft: "0px",
-                    // padding: "10px", // Adjust padding for size
+                    marginTop: "10px",
+                    marginRight: "10px",
+
+                    height: "max-content",
+                    padding: "0px", // Adjust padding for size
                   }}
                 />
                 <Navbar.Brand href="/">LOGO</Navbar.Brand>
@@ -146,7 +89,7 @@ const Header = () => {
 
                   <Nav className=" my-2 my-lg-0" navbarScroll>
                     <NavDropdown
-                      className="ms-2 flex-row"
+                      className="ms-2 flex-row d-none d-md-flex"
                       // title="Account"
                       title={
                         <span>
@@ -157,7 +100,7 @@ const Header = () => {
                       id="navbarScrollingDropdown"
                       as="h6"
                     >
-                      <NavDropdown.Item href="#action3">
+                      <NavDropdown.Item href="/customer/profile">
                         <h6>My Account</h6>
                       </NavDropdown.Item>
                       <NavDropdown.Item href="#action4">
@@ -169,15 +112,52 @@ const Header = () => {
                         <h6>Logout</h6>
                       </NavDropdown.Item>
                     </NavDropdown>
+                    <Button
+                      variant="none"
+                      className=" d-md-none text-start px-0"
+                      onClick={() => setShow(true)}
+                      size="md"
+                      style={{ width: "max-content" }}
+                      as="h6"
+                    >
+                      My Account{" "}
+                      <MdKeyboardArrowRight size={20} className="me-2" />
+                    </Button>
+                    <Modal
+                      show={show}
+                      onHide={() => setShow(false)}
+                      dialogClassName="modal-50w"
+                      aria-labelledby="example-custom-modal-styling-title"
+                    >
+                      <Modal.Header closeButton>
+                        {/* <Modal.Title id="example-custom-modal-styling-title">
+                          Custom Modal Styling
+                        </Modal.Title> */}
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Nav.Link href="/customer/profile">
+                          <h6>My Account</h6>
+                        </Nav.Link>
+                        <Nav.Link href="#action4">
+                          {" "}
+                          <h6>Orders</h6>
+                        </Nav.Link>
+                        <NavDropdown.Divider />
+                        <Nav.Link href="#action5">
+                          <h6>Logout</h6>
+                        </Nav.Link>
+                      </Modal.Body>
+                    </Modal>
                   </Nav>
                 </div>
+                <CategoryList />
               </Navbar.Collapse>
             </div>
             <div className="d-flex gap-3">
               <Nav.Link href="#" className=" d-md-none mt-1">
                 <IoSearch size={20} color="#171717" />
               </Nav.Link>
-              <Nav.Link href="/cart" className=" d-md-none mt-1">
+              <Nav.Link href="/customer/profile" className=" d-md-none mt-1">
                 <FaRegUser size={20} color="#171717" />
               </Nav.Link>
               <Nav.Link href="/cart" className="ms-1 mt-2 mt-md-0">
