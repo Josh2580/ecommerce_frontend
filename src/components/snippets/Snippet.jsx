@@ -23,8 +23,8 @@ const Snippet = ({ props, maxDescriptionLength = 50 }) => {
 
   return (
     <SnipStyle className="product-card">
-      <Row>
-        <Col xs={12} md={12} lg={12}>
+      <Row className="my_row">
+        <Col xs={12} md={12} lg={12} className="">
           <Card.Img
             variant="top"
             src={image}
@@ -33,14 +33,48 @@ const Snippet = ({ props, maxDescriptionLength = 50 }) => {
             onClick={() => urlHandler()}
           />
         </Col>
-        <Col xs={12} md={12} lg={12}>
-          <Card.Body>
-            <Card.Title onClick={() => urlHandler()}>{title}</Card.Title>
-            <Card.Text className="product-description">
+        <Col xs={12} md={12} lg={12} className=" py-0 m-0">
+          <Card.Body className="py-2">
+            <Card.Title
+              className="fs-5 d-none d-md-block text-truncate"
+              onClick={() => urlHandler()}
+              style={{ color: "#575656" }}
+            >
+              {title}
+            </Card.Title>
+            <Card.Title
+              as="p"
+              className="fs-6 d-md-none d-block text-truncate my-1 "
+              onClick={() => urlHandler()}
+              style={{ color: "#575656" }}
+            >
+              {title}
+            </Card.Title>
+            <Card.Text className="product-description d-none d-md-block lh-2 p-0 m-0 mb-1">
+              {/* <Card.Text className={`product-description text-${cyan - 500}`}> */}
               {truncatedDescription}
             </Card.Text>
-            <Card.Text className="product-price">${price}</Card.Text>
-            <Button variant="primary" className="add-to-cart-btn">
+            <Card.Text
+              className="product-price d-none d-md-block p-0 m-0"
+              style={{ color: "#575656" }}
+            >
+              ${price}
+            </Card.Text>
+            <Card.Text
+              className="product-price d-md-none fs-6 d-block"
+              style={{ color: "#575656" }}
+            >
+              ${price}
+            </Card.Text>
+          </Card.Body>
+        </Col>
+        <Col xs={12}>
+          <Card.Body className="py-0 py-0">
+            <Button
+              variant="primary"
+              fluid
+              className="add-to-cart-btn mb-3 w-100"
+            >
               <AddToCartHandler prodId={id} prodQty={1} />
             </Button>
           </Card.Body>
@@ -55,7 +89,15 @@ export default Snippet;
 const SnipStyle = styled(Card)`
   /* Add this CSS in your styles or App.css file */
   max-width: 18rem;
+  /* margin: 2rem; */
+  height: fit-content;
 
+  .my_row {
+    display: flex;
+    /* justify-content: space-between; */
+    /* height: 100%; */
+    /* background: yellow; */
+  }
   .product-card {
     /* width: 18rem; */
     border: 1px solid #eaeaea;
@@ -70,12 +112,10 @@ const SnipStyle = styled(Card)`
   .product-description {
     color: #555;
     font-size: 14px;
-    margin-bottom: 10px;
   }
 
   .product-price {
     font-weight: bold;
-    margin-bottom: 15px;
   }
 
   .add-to-cart-btn {

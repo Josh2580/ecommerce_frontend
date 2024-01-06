@@ -55,7 +55,7 @@ const HomePage = () => {
         {categoryIsSuccess && <CategoryList />}
       </CategorySnippetStyle>
 
-      <h2>All Products</h2>
+      {/* <h2>All Products</h2> */}
       <AllSnippet>
         {isSuccess ? (
           <>
@@ -86,6 +86,7 @@ const AllSnippet = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 16px;
+  margin: 1rem 0rem;
   @media (max-width: 899px) {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
