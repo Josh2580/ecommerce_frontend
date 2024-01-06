@@ -27,7 +27,7 @@ const SimilarComp = ({ catId, itemId }) => {
     <div>
       {isSuccess && (
         <>
-          <p>Similar Good Products </p>
+          <p>You may also like </p>
           <CarouselComp items={SimilarProducts} />
         </>
       )}

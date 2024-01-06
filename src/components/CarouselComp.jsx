@@ -1,10 +1,12 @@
 import React from "react";
 import Snippet from "./snippets/Snippet";
+
 //Importating Carousel modules
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 //importing Sylted modules
 import { styled } from "styled-components";
+import SimilarSnippet from "./snippets/SimilarSnippet";
 
 const CarouselComp = ({ items }) => {
   const responsive = {
@@ -16,7 +18,7 @@ const CarouselComp = ({ items }) => {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 3,
+      items: 4,
       slidesToSlide: 2, // optional, default to 1.
       partialVisibilityGutter: 30, // this is needed to tell the amount of px that should be visible.
     },
@@ -28,7 +30,9 @@ const CarouselComp = ({ items }) => {
     },
   };
 
-  const product = items.map((pro) => <Snippet key={pro.id} props={pro} />);
+  const product = items.map((pro) => (
+    <SimilarSnippet key={pro.id} props={pro} />
+  ));
   // console.log(product);
 
   return (
@@ -36,7 +40,7 @@ const CarouselComp = ({ items }) => {
       <Carousel
         swipeable={true}
         draggable={true}
-        partialVisible={true}
+        // partialVisible={true}
         responsive={responsive}
         ssr={true} // means to render carousel on server-side.
         infinite={true}
@@ -49,7 +53,6 @@ const CarouselComp = ({ items }) => {
         itemClass="eachItem"
       >
         {product}
-        {/* {product} */}
       </Carousel>
     </CarouselStyle>
   );
