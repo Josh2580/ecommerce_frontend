@@ -31,15 +31,16 @@ const SimilarSnippet = ({ props, maxDescriptionLength = 50 }) => {
         <Col xs={12} md={12} lg={12} className=" py-0 m-0">
           <Card.Body className="py-2">
             <Card.Title
-              className="fs-6 text-truncate"
+              as="p"
+              className="fs-6 text-truncate my-0"
               onClick={() => urlHandler()}
-              style={{ color: "#575656" }}
+              style={{ color: "#575656", fontSize: "14px" }}
             >
               {title}
             </Card.Title>
             <Card.Text
               className="fs-6 product-price d-md-block p-0 m-0"
-              style={{ color: "#575656" }}
+              style={{ color: "#575656", fontSize: "14px" }}
             >
               ${price}
             </Card.Text>
