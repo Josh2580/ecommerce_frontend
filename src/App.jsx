@@ -44,6 +44,7 @@ import SellersCustomers from "./pages/sellers/SellersCustomers";
 import SellersReport from "./pages/sellers/SellersReport";
 import SellersChangePassword from "./pages/sellers/SellersChangePassword";
 import AddCategoryPage from "./pages/AddCategoryPage";
+import OrderDetailsPage from "./pages/Customers/OrderDetailsPage";
 
 const App = createBrowserRouter(
   createRoutesFromElements(
@@ -72,7 +73,9 @@ const App = createBrowserRouter(
       {/* Customers Panel */}
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/customer/login" element={<LoginPage />} />
-      <Route path="/customer/dashboard/orders" element={<Orders />} />
+      <Route path="/customer/orders" element={<Orders />} />
+      <Route path="/customer/order/:id" element={<OrderDetailsPage />} />
+
       <Route path="/customer/dashboard" element={<UsersDashboard />} />
       <Route path="/customer/change-password" element={<ChangePassword />} />
       <Route path="/customer/profile" element={<Profile />} />

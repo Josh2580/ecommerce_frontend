@@ -1,110 +1,86 @@
-import React from "react";
-import { orderProduct } from "../../source/ProductSource";
-import { NavLink } from "react-router-dom";
-import { styled } from "styled-components";
-import { AccountMainHeader } from "./AccountHeader";
-import { AccHeader, UserDiv } from "./UsersDashboard";
-import { FaSpinner, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+// Orders.jsx
+import React, { useState } from "react";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import OrderDetailsPage from "./OrderDetailsPage"; // Import the new component
+import { Pagination } from "react-bootstrap";
 
 const Orders = () => {
+  const itemsPerPage = 2;
+  // Simulated order data
+  const ordersData = [
+    { id: 1, status: "successful", date: "2023-01-01", total: 50.0 },
+    { id: 2, status: "pending", date: "2023-02-01", total: 75.0 },
+    // Add more orders as needed
+  ];
+
+  const [orders, setOrders] = useState(ordersData);
+
+  // Function to cancel an order
+  const cancelOrder = (orderId) => {
+    // Implement cancellation logic (e.g., update order status)
+    // For now, let's simulate removing the order from the list
+    setOrders((prevOrders) =>
+      prevOrders.filter((order) => order.id !== orderId)
+    );
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const indexOfLastOrder = currentPage * itemsPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - itemsPerPage;
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <UserDiv>
-      <AccHeader>
-        <AccountMainHeader />
-      </AccHeader>
-      <Table>
-        <thead>
-          <Tr>
-            <th className="serialNumber">S/N</th>
-            <th>OrderId</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Action</th>
-          </Tr>
-        </thead>
-        <tbody>
-          {orderProduct.map((data, i) => (
-            <Tr key={i}>
-              <td className="serialNumber">{i + 1}</td>
-              <td>{data.orderId}</td>
-              <td>{data.price}</td>
-              <Td
-                color={
-                  data.status === "completed"
-                    ? "green"
-                    : "pending"
-                    ? "goldenrod"
-                    : "failed"
-                    ? "red"
-                    : "none"
-                }
-                // color={data.status === "completed" ? "green" : "none"}
-                // color={data.status === "pending" ? "goldenrod" : "none"}
-
-                // color="green"
-              >
-                {" "}
-                {data.status === "completed" && <FaCheckCircle />}
-                {data.status === "failed" && <FaTimesCircle />}{" "}
-                {data.status === "pending" && <FaSpinner />} {data.status}
-              </Td>
-              {/* <td>{data.action}</td> */}
-              <td className="action">
-                <NavLink>
-                  <span>Delete</span>
-                </NavLink>
-
-                <NavLink>
-                  <span>Action</span>
-                </NavLink>
-              </td>
-            </Tr>
-          ))}
-        </tbody>
-      </Table>
-    </UserDiv>
+    <Container className="mt-4">
+      <h2>Order History</h2>
+      {orders.map((order) => (
+        <Card key={order.id} className="mb-3">
+          <Card.Body>
+            <Row>
+              <Col>
+                <Card.Title>Order #{order.id}</Card.Title>
+                <Card.Text>
+                  <strong>Status:</strong> {order.status}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Date:</strong> {order.date}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Total:</strong> ${order.total.toFixed(2)}
+                </Card.Text>
+              </Col>
+              <Col className="text-end">
+                <Link
+                  to={`/customer/order/${order.id}`}
+                  className="btn btn-primary me-2"
+                >
+                  View Details
+                </Link>
+                <Button variant="danger" onClick={() => cancelOrder(order.id)}>
+                  Cancel Order
+                </Button>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      ))}
+      <Pagination>
+        {[...Array(Math.ceil(orders.length / itemsPerPage)).keys()].map(
+          (number) => (
+            <Pagination.Item
+              key={number + 1}
+              onClick={() => paginate(number + 1)}
+            >
+              {number + 1}
+            </Pagination.Item>
+          )
+        )}
+      </Pagination>
+    </Container>
   );
 };
-
-const Tr = styled.tr`
-  text-align: left;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #afacac;
-  gap: 10px;
-
-  td,
-  th {
-    width: 100px;
-    padding: 5px 0px;
-  }
-
-  .action {
-    display: flex;
-    gap: 7px;
-  }
-
-  .serialNumber {
-    width: 25px;
-  }
-`;
-
-const Td = styled.td`
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  color: ${(props) => props.color};
-`;
-
-const Table = styled.table`
-  width: 100%;
-`;
-
-const OrderStyle = styled.div`
-  box-shadow: 0px 0px 5px 0px #c4bfbf;
-  padding: 1rem 0rem;
-  /* max-width: max-content; */
-  width: 100%;
-`;
 
 export default Orders;

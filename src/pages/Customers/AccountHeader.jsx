@@ -8,7 +8,7 @@ const AccountHeader = (props) => {
       <NavLink onClick={props.onClick} to="/customer/dashboard">
         <span>Dashboard</span>
       </NavLink>
-      <NavLink onClick={props.onClick} to="/customer/dashboard/orders">
+      <NavLink onClick={props.onClick} to="/customer/orders">
         <span>My Orders</span>
       </NavLink>
       <NavLink onClick={props.onClick} to="/customer/wishlist">
@@ -57,7 +57,7 @@ export const AccountMainHeader = (props) => {
       <NavLink to="/customer/dashboard">
         <span>Dashboard</span>
       </NavLink>
-      <NavLink to="/customer/dashboard/orders">
+      <NavLink to="/customer/orders">
         <span>My Orders</span>
       </NavLink>
       <NavLink to="/customer/wishlist">

@@ -58,7 +58,7 @@ const LoginPage = () => {
       // Sending to the state User Profile
       // dispatch(userState(userData));
       //Navigation
-      // navigate(1);
+      navigate(-1);
     } else if (result.error) {
       toast(`Login Failed: ${result.error.data.detail}`);
     }

@@ -15,9 +15,9 @@ import {
 } from "./AuthenticationStyle";
 import { AccHeader, UserDiv } from "./UsersDashboard";
 import { AccountMainHeader } from "./AccountHeader";
-AccHeader
+import { Container, Row, Col, Card, Image } from "react-bootstrap";
 // import { UserDiv } from "../customers/UsersDashboard";
-
+import UserImg from "../../assets/user_image.webp";
 
 const Profile = () => {
   const { data, isError, error, isSuccess } = useGetUserProfileQuery();
@@ -51,27 +51,6 @@ const Profile = () => {
   // console.log(gender);
 
   const SubmitHandler = async (e) => {};
-  //     e.preventDefault();
-  //     if (password !== confirmPassword) {
-  //       alert("Password does not match");
-  //     } else {
-  //       const userData = await registerUser({
-  //         username,
-  //         email,
-  //         password,
-  //         date_of_birth,
-  //         gender,
-  //       });
-  //       console.log(userData);
-
-  //       dispatch(setCredentials({ ...userData }));
-  //       navigate("/dashboard");
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     userData && navigate("/dashboard");
-  //   }, [userInfo]);
 
   useEffect(() => {
     setUsername("");
@@ -84,10 +63,10 @@ const Profile = () => {
 
   return (
     <UserDiv>
-      <AccHeader>
+      {/* <AccHeader>
         <AccountMainHeader />
-      </AccHeader>
-      <RegisterStyle>
+      </AccHeader> */}
+      {/* <RegisterStyle>
         <DetailForm onSubmit={SubmitHandler}>
           <h1>Profile Page</h1>
           <div>
@@ -190,7 +169,52 @@ const Profile = () => {
             </TheButtons>
           </div>
         </DetailForm>
-      </RegisterStyle>
+      </RegisterStyle> */}
+      <Container className="my-2">
+        <Row className="justify-content-center">
+          <Col md={8} lg={6}>
+            <Card>
+              <Card.Body>
+                <div className="text-center mb-4">
+                  <Image
+                    // src="https://placekitten.com/150/150" // Replace with the user's profile image URL
+                    src={UserImg} // Replace with the user's profile image URL
+                    roundedCircle
+                    alt="User Profile"
+                    width={150}
+                    height={150}
+                  />
+                </div>
+                <h3 className="text-center mb-3">John Doe</h3>
+                <p className="text-muted text-center mb-3">Web Developer</p>
+
+                <hr />
+
+                <div className="mb-3">
+                  <p>
+                    <strong>Email:</strong> john.doe@example.com
+                  </p>
+                  <p>
+                    <strong>Phone:</strong> (555) 123-4567
+                  </p>
+                  <p>
+                    <strong>Location:</strong> City, Country
+                  </p>
+                </div>
+
+                <hr />
+
+                <div className="text-center">
+                  <p>
+                    Welcome to our eCommerce platform! If you have any questions
+                    or need assistance, feel free to contact us.
+                  </p>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </UserDiv>
   );
 };

@@ -17,7 +17,9 @@ import {
   NavDropdown,
   Modal,
 } from "react-bootstrap";
+
 import { useGetAllCategoryQuery } from "../../source/api/CategoryApi";
+import Logout from "./Logout";
 
 const Header = () => {
   const [show, setShow] = useState(false);
@@ -103,13 +105,14 @@ const Header = () => {
                       <NavDropdown.Item href="/customer/profile">
                         <h6>My Account</h6>
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="#action4">
+                      <NavDropdown.Item href="/customer/orders">
                         {" "}
                         <h6>Orders</h6>
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item href="#action5">
-                        <h6>Logout</h6>
+                      <NavDropdown.Item>
+                        {/* <h6>Logout</h6> */}
+                        <Logout />
                       </NavDropdown.Item>
                     </NavDropdown>
                     <Button
@@ -138,13 +141,15 @@ const Header = () => {
                         <Nav.Link href="/customer/profile">
                           <h6>My Account</h6>
                         </Nav.Link>
-                        <Nav.Link href="#action4">
+                        <Nav.Link href="/customer/orders">
                           {" "}
                           <h6>Orders</h6>
                         </Nav.Link>
                         <NavDropdown.Divider />
-                        <Nav.Link href="#action5">
-                          <h6>Logout</h6>
+                        <Nav.Link>
+                          {/* <h6>Logout</h6> */}
+
+                          <Logout />
                         </Nav.Link>
                       </Modal.Body>
                     </Modal>
