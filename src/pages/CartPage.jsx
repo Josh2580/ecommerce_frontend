@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 import { SelectStyled } from "../components/select/Select";
@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { updateCart } from "../source/storage/CartSlice";
 import {
   useGetCartItemsFromIdQuery,
   useGetCartByIdQuery,

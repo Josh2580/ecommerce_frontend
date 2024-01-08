@@ -10,6 +10,7 @@ import {
   Form,
   InputGroup,
   Button,
+  Spinner,
 } from "react-bootstrap";
 //
 //
@@ -48,7 +49,7 @@ import Address from "./Customers/Address";
 //
 import { useSelector, useDispatch } from "react-redux";
 import { useGetUserProfileQuery } from "../source/api/authenticationApi";
-import { userState } from "../source/storage/AuthSlice";
+import { deleteCart } from "../source/storage/CartSlice";
 //
 
 // console.log("All Countries", Country.getAllCountries());
@@ -65,6 +66,8 @@ import { userState } from "../source/storage/AuthSlice";
 // console.log("All Cities", City.getAllCities());
 
 const CheckoutPage = () => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const { cartId } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const state_cart_id = cartId.cart_id;
@@ -143,10 +146,12 @@ const CheckoutPage = () => {
       event.stopPropagation();
       console.log("Some field empty");
     } else {
+      setLoading(true);
       cartFormData.append("cart_id", state_cart_id);
       let orderNow = await createOrder({ formData: cartFormData });
       // createOrder({ formData: cartFormData });
       if (orderNow) {
+        dispatch(deleteCart);
         const paymentFormData = new FormData();
         paymentFormData.append("payment_method", inputData.payment_method);
         updateOrderPayment({
@@ -388,10 +393,7 @@ const CheckoutPage = () => {
               CartItems.items.map((prod) => (
                 <div key={prod.id} className="eachProduct">
                   <div className="info">
-                    <img
-                      src={"http://127.0.0.1:8000" + prod.product.image}
-                      alt={prod.product.title}
-                    />
+                    <img src={prod.product.image} alt={prod.product.title} />
                     <div>
                       <p>{prod.product.title}</p>
                       <p>Qty: {prod.quantity}</p>
@@ -408,11 +410,29 @@ const CheckoutPage = () => {
             )}
 
             <ButtonStyle
-              width="100%"
               // onClick={(event) => PlaceOrderHandler(event)}
+              width="100%"
+              disabled={loading}
             >
-              Place Order
+              {loading && (
+                <Spinner
+                  // as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              )}
+              {loading ? "Loading..." : "Place Order"}
             </ButtonStyle>
+            {/* <Button
+              as="input"
+              // type="button"
+              value={loading ? "Loading..." : "Place Order"}
+            /> */}
+            {/* <Button as="button">
+              {loading ? "Loading..." : "Place Order"}
+            </Button> */}
           </OrderDetailsStyle>
         </Col>
       </Row>

@@ -59,7 +59,11 @@ const Orders = () => {
                 >
                   View Details
                 </Link>
-                <Button variant="danger" onClick={() => cancelOrder(order.id)}>
+                <Button
+                  variant="danger"
+                  className="mt-md-0 mt-2"
+                  onClick={() => cancelOrder(order.id)}
+                >
                   Cancel Order
                 </Button>
               </Col>
