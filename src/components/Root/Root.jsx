@@ -11,7 +11,7 @@ const Root = () => {
       <div>
         <Header />
         <div className="render">
-          <Container fluid="lg" className="my-auto mt-5 pt-3  pt-md-5 pt-lg-4 ">
+          <Container fluid="lg">
             <Outlet />
           </Container>
         </div>
