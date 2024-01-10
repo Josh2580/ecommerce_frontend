@@ -1,4 +1,5 @@
 import { RootApi } from "./RootApi";
+import { v4 as uuidv4 } from "uuid";
 
 const CartsApi = RootApi.injectEndpoints({
   endpoints: (build) => ({

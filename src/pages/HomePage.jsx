@@ -1,61 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Snippet from "../components/snippets/Snippet";
 import { styled } from "styled-components";
 import { useGetAllProductQuery } from "../source/api/ProductsApi";
 import { useGetAllCategoryQuery } from "../source/api/CategoryApi";
-import CategorySnippet from "../components/snippets/CategorySnippet";
 import CategoryList from "../components/CategoryList";
-import ReactPaginate from "react-paginate";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import { NavLink } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 
 const HomePage = () => {
   const { data: allData, isSuccess } = useGetAllProductQuery();
   const { isSuccess: categoryIsSuccess } = useGetAllCategoryQuery();
-  const pageSize = 3;
-  const [data, setData] = useState([]);
-  const [total, setTotal] = useState();
-
-  const [pagination, setPagination] = useState({
-    count: 0,
-    from: 0,
-    to: pageSize,
-  });
-
-  // useEffect(() => {
-  // {
-  //   isSuccess &&
-  //     setData(allData.slice(pagination.from, pagination.to));
-  // }
-  // {
-  //   isSuccess && setData(allData);
-  // }
-  // {
-  //   isSuccess && setTotal(allData.count);
-  // }
-  // {
-  //   isSuccess &&
-  //     setPagination({
-  //       ...pagination,
-  //       count: Math.ceil(allData.count / pageSize),
-  //     });
-  // }
-  // }, [isSuccess, total]);
 
   return (
     <div>
-      {/* <br /> */}
-      {/* {data} */}
-      {/* {isSuccess && (
-        <Pagination count={pagination.count} onChange={handleChange} />
-      )} */}
-
       <CategorySnippetStyle>
         {categoryIsSuccess && <CategoryList />}
       </CategorySnippetStyle>
 
-      {/* <h2>All Products</h2> */}
       <AllSnippet>
         {isSuccess ? (
           <>
@@ -64,7 +24,12 @@ const HomePage = () => {
             ))}
           </>
         ) : (
-          <h1>is loading</h1>
+          <div
+            className="d-flex w-100 align-items-center justify-content-center"
+            style={{ height: "50vh" }}
+          >
+            <Spinner animation="grow" variant="secondary" />
+          </div>
         )}
       </AllSnippet>
     </div>

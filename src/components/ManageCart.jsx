@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../source/storage/CartSlice";
 
-export const AddToCartHandler = ({ prodId, prodQty }) => {
+export const AddToCartHandler = ({ prodId, prodQty, navCart }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // This is for Adding to Cart Management
+  // This is for Adding to Cart Management
   const [createCart] = useCreateCartMutation();
   const [addToCartItems] = useCreateCartItemsMutation();
 
@@ -17,8 +19,9 @@ export const AddToCartHandler = ({ prodId, prodQty }) => {
     state.cart ? state.cart.cartId : ""
   );
   const CreateCartHandler = async () => {
-    console.log("productId: ", prodId);
-    console.log("quantity: ", prodQty);
+    // console.log("productId: ", prodId);
+    // console.log("quantity: ", prodQty);
+    // console.log(cartInfo);
 
     //   FormData: for Creating CART
     const formData = new FormData();
@@ -29,23 +32,26 @@ export const AddToCartHandler = ({ prodId, prodQty }) => {
     cartItemFormData.append("quantity", prodQty);
     //    Create New Cart if there's no Cart_Id in State and vice_versa
     if (!cartInfo) {
-      // console.log("This is New");
-
       console.log(cartInfo);
       let cartResult = await createCart({ formData });
       let cartId = cartResult.data.id;
       console.log(cartResult);
       dispatch(addToCart({ cart_id: cartId }));
-
       let newCartItemResult = await addToCartItems({
         formData: cartItemFormData,
         id: cartId,
       });
+      // console.log(newCartItemResult);
 
       if (newCartItemResult) {
-        navigate(`/cart`);
+        // console.log("New Cart Created");
+        // console.log(newCartItemResult);
+
+        {
+          navCart && navigate(`/cart`);
+        }
       }
-      console.log(newCartItemResult);
+      // console.log(newCartItemResult);
     } else {
       // console.log("This is Else");
       let cartItemResult = await addToCartItems({
@@ -53,10 +59,13 @@ export const AddToCartHandler = ({ prodId, prodQty }) => {
         id: cartInfo.cart_id,
       });
       if (cartItemResult) {
-        navigate(`/cart`);
+        {
+          navCart && navigate(`/cart`);
+        }
+
+        // console.log(cartItemResult);
+        // console.log("Add item to existing cart");
       }
-      navigate(`/cart`);
-      console.log(cartItemResult);
     }
   };
   return <div onClick={() => CreateCartHandler()}>Add To Cart</div>;

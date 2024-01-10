@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Bootstrap files
 import {
@@ -31,7 +31,7 @@ import { ButtonStyle } from "../components/myModules/Button";
 // import { InputStyle } from "../components/myModules/Inputs";
 
 import {
-  // useGetCartItemsFromIdQuery,
+  useGetCartItemsFromIdQuery,
   useGetCartByIdQuery,
   // useUpdateCartItemsMutation,
 } from "../source/api/CartApi";
@@ -67,19 +67,35 @@ import { deleteCart } from "../source/storage/CartSlice";
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
   const { cartId } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const state_cart_id = cartId.cart_id;
   const { data: userData } = useGetUserProfileQuery() || {};
-  // console.log(userData.id);
 
+  const { data: MainCart } = useGetCartByIdQuery(state_cart_id);
   const {
     data: CartItems,
     isLoading: CartIsLoading,
     error: CartError,
-  } = useGetCartByIdQuery(state_cart_id);
+  } = useGetCartItemsFromIdQuery(state_cart_id);
+
   const [pay, { data: payData, isSuccess: paySuccess }] = usePayMutation();
+
+  // console.log(CartItems);
+  // //
+  // //
+  // //
+  const currentURL = window.location.href;
+  // Parse the URL to get the root URL
+  const urlObject = new URL(currentURL);
+  const rootURL = urlObject.origin;
+
+  // Now, 'rootURL' contains the root URL (e.g., http://localhost:3000)
+  console.log(rootURL);
+  // //
+  // //
 
   const [
     createOrder,
@@ -390,7 +406,7 @@ const CheckoutPage = () => {
           <OrderDetailsStyle>
             <p className="header">Order Details</p>
             {CartItems &&
-              CartItems.items.map((prod) => (
+              CartItems.map((prod) => (
                 <div key={prod.id} className="eachProduct">
                   <div className="info">
                     <img src={prod.product.image} alt={prod.product.title} />
@@ -402,10 +418,10 @@ const CheckoutPage = () => {
                   <p className="price">{prod.sub_total}</p>
                 </div>
               ))}
-            {CartItems && (
+            {MainCart && (
               <div className="eachProduct">
                 <h3>Total:</h3>
-                <h3>{CartItems.grand_total}</h3>
+                <h3>{MainCart.grand_total}</h3>
               </div>
             )}
 

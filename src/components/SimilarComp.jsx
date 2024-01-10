@@ -22,7 +22,7 @@ const SimilarComp = ({ catId, itemId }) => {
       (prod) => prod.id != itemId
     );
   }
-  console.log(SimilarProducts);
+  // console.log(SimilarProducts);
   return (
     <div>
       {isSuccess && (

@@ -23,5 +23,5 @@ const categorysApi = RootApi.injectEndpoints({
 export const {
   useGetAllCategoryQuery,
   useGetCategoryByIdQuery,
-  // usePostCategoryMutation,
+  usePostCategoryMutation,
 } = categorysApi;

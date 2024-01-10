@@ -22,6 +22,7 @@ import {
   useCreateCartItemsMutation,
 } from "../source/api/CartApi";
 import { AddToCartHandler } from "../components/ManageCart";
+import Spinner from "react-bootstrap/Spinner";
 
 const ProductDetailsPage = () => {
   const navigate = useNavigate();
@@ -145,61 +146,6 @@ const ProductDetailsPage = () => {
   //   setCartIdUrl(cartInfo.cart_id);
   // }, [cartInfo]);
 
-  const AddToCartHandlerss = async () => {
-    // FormData: for Creating CART
-    const formData = new FormData();
-    formData.append("owner", "");
-    // CartItems_FormData: for Creating CART ITEMS
-    const cartItemFormData = new FormData();
-    cartItemFormData.append("product_id", data.id);
-    cartItemFormData.append("quantity", selectedQuantity);
-    //  Create New Cart if there's no Cart_Id in State and vice_versa
-    if (!cartInfo) {
-      console.log(cartInfo);
-      let cartResult = await createCart({ formData });
-      let cartId = cartResult.data.id;
-      dispatch(addToCart({ cart_id: cartId }));
-
-      let cartItemResult = await addToCartItems({
-        formData: cartItemFormData,
-        id: cartId,
-      });
-      if (cartItemResult) {
-        navigate(`/cart/${cartId}`);
-      }
-      // console.log(cartItemResult);
-    } else {
-      let cartItemResult = await addToCartItems({
-        formData: cartItemFormData,
-        id: cartInfo.cart_id,
-      });
-      if (cartItemResult) {
-        navigate(`/cart/${cartInfo.cart_id}`);
-      }
-      // navigate(`/cart/${cartInfo.cart_id}`);
-      console.log(cartItemResult);
-    }
-
-    // if (cartResult.data) {
-    //   // const cartItemFormData = new FormData();
-    //   // cartItemFormData.append("product_id", data.id);
-    //   // cartItemFormData.append("quantity", selectedQuantity);
-    //   // let cartItemResult = await addToCartItems({
-    //   //   formData: cartItemFormData,
-    //   //   id: cartId,
-    //   // });
-    //   // console.log(cartItemResult);
-    //   // navigate(`/cart/${cartId}`);
-    // }
-    // console.log(selectedColor);
-    // console.log(selectedSize);
-    // console.log(selectedQuality);
-    // console.log(selectedQuantity);
-
-    // addToCart;
-    // navigate(`/cart/${id}`);
-  };
-
   useEffect(() => {
     if (isSuccess) {
       // setSelectedColor(data.SelectedColor);
@@ -215,7 +161,12 @@ const ProductDetailsPage = () => {
   return (
     <>
       {isLoading ? (
-        <h1>Its Loading</h1>
+        <div
+          className="d-flex w-100 align-items-center justify-content-center"
+          style={{ height: "50vh" }}
+        >
+          <Spinner animation="grow" variant="secondary" />
+        </div>
       ) : isError ? (
         <h1>error</h1>
       ) : (
@@ -304,7 +255,11 @@ const ProductDetailsPage = () => {
               </div>
 
               <ButtonStyle>
-                <AddToCartHandler prodId={data.id} prodQty={selectedQuantity} />
+                <AddToCartHandler
+                  prodId={data.id}
+                  prodQty={selectedQuantity}
+                  navCart={true}
+                />
               </ButtonStyle>
 
               <ShareComp />

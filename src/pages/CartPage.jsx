@@ -28,14 +28,16 @@ const CartPage = () => {
   // console.log(userState, isToken);
 
   const state_cart_id = cartId.cart_id;
-  // console.log(state_cart_id);
   const { data, isLoading, error } = useGetCartItemsFromIdQuery(state_cart_id);
-  // console.log(data);
+
+  // console.log(data.length);
+
   const {
     data: CartData,
     isLoading: CartIsLoading,
     error: CartError,
   } = useGetCartByIdQuery(state_cart_id);
+
   const [updateCartItemsApi] = useUpdateCartItemsMutation();
   const [updateCartApi, { data: cartOwnerData }] = useUpdateCartMutation();
   const [removeCartItem] = useRemoveCartItemsMutation();
@@ -44,7 +46,6 @@ const CartPage = () => {
   //   console.log("Timeout funtion");
   // }, 3000);
 
-  // console.log(CartData);
   const UpdateCartItemHandler = (e) => {
     let item_id = e.target.id;
     let cart_updated = e.target.value;
@@ -87,7 +88,7 @@ const CartPage = () => {
       const formData = new FormData();
       formData.append("owner", userState.id);
       updateCartApi({ cartId, formData });
-      console.log("Updating owner");
+      // console.log("Updating owner");
     }
   }, [isToken, userState, owner]);
 
@@ -152,7 +153,7 @@ const CartPage = () => {
         <CartSummary>
           <div className="header">
             <p>Order Summary</p>
-            <p>3 items</p>
+            {data && <p>{data.length} items</p>}
           </div>
           <div className="delivery">
             <p>Delivery Charges</p>
