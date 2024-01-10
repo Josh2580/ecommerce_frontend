@@ -22,8 +22,11 @@ const Snippet = ({ props, maxDescriptionLength = 50 }) => {
   };
 
   return (
-    <SnipStyle className="product-card">
-      <Row className="my_row">
+    <SnipStyle
+      className="product-card  "
+      style={{ border: "none", boxShadow: "0px 4px 6px rgba(51, 51, 51, 0.1)" }}
+    >
+      <Row className="my_row ">
         <Col xs={12} md={12} lg={12} className="">
           <Card.Img
             variant="top"
@@ -90,14 +93,8 @@ const SnipStyle = styled(Card)`
 
   .my_row {
     display: flex;
-    /* justify-content: space-between; */
-    /* height: 100%; */
-    /* background: yellow; */
   }
   .product-card {
-    /* width: 18rem; */
-    border: 1px solid #eaeaea;
-    border-radius: 10px;
     transition: transform 0.3s ease-in-out;
 
     &:hover {

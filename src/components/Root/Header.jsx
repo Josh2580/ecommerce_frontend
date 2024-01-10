@@ -13,9 +13,33 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 //
 import Logout from "./Logout";
+//
+import { useGetAllCategoryQuery } from "../../source/api/CategoryApi";
 
 function Header() {
   let expand = "md";
+
+  const { data } = useGetAllCategoryQuery() || [];
+
+  const CategoryList = () => {
+    return (
+      <div className="d-flex gap-2 d-md-none flex-column">
+        <h6 className="fw-bold">Our Categories</h6>
+        {data &&
+          data.map((val) => (
+            <Nav.Link key={val.id} href={`/category/${val.id}`}>
+              {val.name}
+              <MdKeyboardArrowRight
+                size={20}
+                className="me-2"
+                color={"#7F8285"}
+              />
+            </Nav.Link>
+          ))}
+      </div>
+    );
+  };
+
   return (
     <>
       <Navbar
@@ -75,7 +99,7 @@ function Header() {
                     </span>
                   }
                   id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  className="mx-md-3"
+                  className="mx-md-3 my-3 my-md-0"
                 >
                   <NavDropdown.Item href="/customer/profile">
                     <h6>My Account</h6>
@@ -99,6 +123,7 @@ function Header() {
                   />
                   <span>Cart</span>
                 </Nav.Link>
+                <CategoryList />
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
