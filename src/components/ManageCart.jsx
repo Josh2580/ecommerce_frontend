@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useCreateCartMutation,
   useCreateCartItemsMutation,
@@ -6,8 +6,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../source/storage/CartSlice";
+import Toast from "react-bootstrap/Toast";
 
-export const AddToCartHandler = ({ prodId, prodQty, navCart }) => {
+export const AddToCartHandler = ({ prodId, prodQty, navCart, product }) => {
+  const [show, setShow] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // This is for Adding to Cart Management
@@ -19,9 +22,7 @@ export const AddToCartHandler = ({ prodId, prodQty, navCart }) => {
     state.cart ? state.cart.cartId : ""
   );
   const CreateCartHandler = async () => {
-    // console.log("productId: ", prodId);
-    // console.log("quantity: ", prodQty);
-    // console.log(cartInfo);
+    setShow(true);
 
     //   FormData: for Creating CART
     const formData = new FormData();
@@ -68,5 +69,28 @@ export const AddToCartHandler = ({ prodId, prodQty, navCart }) => {
       }
     }
   };
-  return <div onClick={() => CreateCartHandler()}>Add To Cart</div>;
+  return (
+    <>
+      <Toast
+        onClose={() => setShow(false)}
+        className="bg-success"
+        show={show}
+        style={{
+          position: "absolute",
+          top: "30%",
+          left: "0px",
+          // background: "green",
+        }}
+        delay={3000}
+        autohide
+      >
+        <Toast.Header>
+          <strong className="me-auto text-truncate">{product}</strong>
+          {/* <small>11 mins ago</small> */}
+        </Toast.Header>
+        <Toast.Body>Added to Cart</Toast.Body>
+      </Toast>
+      <div onClick={() => CreateCartHandler()}>Add To Cart</div>
+    </>
+  );
 };

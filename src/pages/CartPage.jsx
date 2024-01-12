@@ -14,7 +14,6 @@ import {
   useRemoveCartItemsMutation,
   useUpdateCartMutation,
 } from "../source/api/CartApi";
-useGetCartItemsFromIdQuery;
 
 const CartPage = () => {
   const navigate = useNavigate();

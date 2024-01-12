@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { useRegisterUserMutation } from "../features/Post/PostApi";
 // import { login } from "../features/auth/authSlice";
+import { useRegisterUserMutation } from "../../source/api/authenticationApi";
 
 import {
   RegisterStyle,
@@ -12,6 +13,12 @@ import {
   DetailForm,
   LinkStyle,
 } from "../Customers/AuthenticationStyle";
+// import { Button } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+import { login } from "../../source/storage/AuthSlice";
+// import Toast from "react-bootstrap/Toast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterPage = () => {
   //   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -23,15 +30,15 @@ const RegisterPage = () => {
 
   //   const { data: userData } = userInfo;
 
-  //   const [registerUser, { data, isError, error, isSuccess }] =
-  //     useRegisterUserMutation();
+  const [registerUser, { data, isError, error, isSuccess }] =
+    useRegisterUserMutation();
 
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
-  const [date_of_birth, set_date_of_birth] = useState("");
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_Name] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -41,57 +48,51 @@ const RegisterPage = () => {
 
   // console.log(gender);
 
-  const SubmitHandler = async (e) => {};
-  //     e.preventDefault();
-  //     if (password !== confirmPassword) {
-  //       alert("Password does not match");
-  //     } else {
-  //       const userData = await registerUser({
-  //         username,
-  //         email,
-  //         password,
-  //         date_of_birth,
-  //         gender,
-  //       });
-  //       console.log(userData);
+  const SubmitHandler = async (e) => {
+    e.preventDefault();
 
-  //       dispatch(login({ ...userData }));
-  //       navigate("/dashboard");
-  //     }
-  //   };
+    if (password !== confirmPassword) {
+      toast("Password does not match");
+    } else {
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("first_name", first_name);
+      formData.append("last_name", last_name);
+      formData.append("password", password);
+      const userData = await registerUser({ formData });
+      // console.log(userData?.error?.data);
+      if (userData?.error?.data?.password) {
+        let RegError = userData.error.data.password;
 
-  //   useEffect(() => {
-  //     userData && navigate("/dashboard");
-  //   }, [userInfo]);
+        RegError.map((val) => toast(val));
+      } else if (userData?.error?.data?.email) {
+        let RegError = userData.error.data.email;
+        console.log(RegError);
+        RegError.map((val) => toast(val));
+      } else {
+        navigate("/customer/login");
+      }
+
+      // dispatch(login({ ...userData }));
+      // navigate(-1);
+    }
+  };
 
   useEffect(() => {
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    setGender("default");
-    set_date_of_birth("");
+    // setEmail("");
+    // setPassword("");
+    // setConfirmPassword("");
+    // setFirst_name("");
+    // setLast_Name("");
   }, []);
+
+  let symbols = "!@#$%^&*()-=_+[]{ };':|,./<>?|`~";
 
   return (
     <RegisterStyle>
-      <DetailForm onSubmit={SubmitHandler}>
-        <h1>Register Page</h1>
-        <div>
-          <Input>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              maxLength={50}
-              required
-              placeholder="Enter Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              // onChange={handlerUsernameInput}
-            />
-          </Input>
-
+      <DetailForm as="form" onSubmit={SubmitHandler}>
+        <h3>Register </h3>
+        <div className="d-flex flex-column gap-3">
           <Input>
             <label htmlFor="email">Email</label>
             <input
@@ -107,34 +108,31 @@ const RegisterPage = () => {
           </Input>
 
           <Input>
-            <label htmlFor="date">Date of Birth</label>
+            <label htmlFor="first_name">First Name</label>
             <input
-              type="date"
-              id="date"
+              type="text"
+              id="first_name"
               maxLength={50}
               required
-              placeholder="Select Date of Birth"
-              value={date_of_birth}
-              onChange={(e) => set_date_of_birth(e.target.value)}
+              placeholder="Enter First Name"
+              value={first_name}
+              onChange={(e) => setFirst_name(e.target.value)}
               // onChange={handlerPasswordInput}
             />
           </Input>
 
           <Input>
-            <label htmlFor="gender">Gender</label>
-            <select
-              defaultValue="default"
-              name="gender"
-              id="gender"
+            <label htmlFor="last_name">Last Name</label>
+            <input
+              type="text"
+              id="last_name"
+              maxLength={50}
               required
-              onChange={(e) => setGender(e.target.value)}
-            >
-              <option value="default" disabled>
-                Select your gender
-              </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+              placeholder="Enter Last Name"
+              value={last_name}
+              onChange={(e) => setLast_Name(e.target.value)}
+              // onChange={handlerPasswordInput}
+            />
           </Input>
 
           <Input>
@@ -151,14 +149,37 @@ const RegisterPage = () => {
             />
           </Input>
 
+          <div className="d-flex flex-column bg-white p-2 rounded">
+            <span style={{ fontSize: "11px" }}>
+              {" "}
+              <span className="text-danger fw-bolder ">*</span> Password should
+              not be similar to the email
+            </span>
+            <span style={{ fontSize: "11px" }}>
+              {" "}
+              <span className="text-danger fw-bolder">*</span> Password should
+              contain atleast 8 characters
+            </span>
+            <span style={{ fontSize: "11px" }}>
+              {" "}
+              <span className="text-danger fw-bolder">*</span> Password should
+              contain uppercase, lowercase, numbers and symbols E.g: {symbols}
+            </span>
+            <span style={{ fontSize: "11px" }}>
+              {" "}
+              <span className="text-danger fw-bolder">*</span> Password should
+              not be too common
+            </span>
+          </div>
+
           <Input>
-            <label htmlFor="confirmPassword">Password</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <input
               type="confirmPassword"
               id="confirmPassword"
               maxLength={50}
               required
-              placeholder="Confirm Password"
+              placeholder="Pls Confirm Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               // onChange={handlerUsernameInput}
@@ -169,12 +190,18 @@ const RegisterPage = () => {
             <span>
               <i>Already Registered? </i>
             </span>
-            <LinkStyle to="/login"> Login</LinkStyle>
+            <LinkStyle className="fw-bolder text-success" to="/customer/login">
+              {" "}
+              Login
+            </LinkStyle>
           </p>
 
-          <TheButtons>
-            <Button>Register</Button>
-          </TheButtons>
+          <>
+            <Button className="w-100 fw-bolder bg-success border-0">
+              Register
+            </Button>
+            <ToastContainer />
+          </>
         </div>
       </DetailForm>
     </RegisterStyle>

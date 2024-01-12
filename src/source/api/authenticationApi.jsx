@@ -12,12 +12,25 @@ const authenticationApi = RootApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+
     getUserProfile: build.query({
       query: () => "auth/users/me/",
+    }),
+
+    registerUser: build.mutation({
+      query: ({ formData }) => ({
+        url: "auth/users/",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["User"],
     }),
   }),
   overrideExisting: false,
 });
 
-export const { useCustomersLoginMutation, useGetUserProfileQuery } =
-  authenticationApi;
+export const {
+  useCustomersLoginMutation,
+  useGetUserProfileQuery,
+  useRegisterUserMutation,
+} = authenticationApi;

@@ -73,8 +73,16 @@ const Snippet = ({ props, maxDescriptionLength = 50 }) => {
         </Col>
         <Col xs={12}>
           <Card.Body className="py-0 py-0">
-            <Button variant="primary" className="add-to-cart-btn mb-3 w-100">
-              <AddToCartHandler prodId={id} prodQty={1} navCart={false} />
+            <Button
+              variant="primary"
+              className="add-to-cart-btn mb-3 w-100 bg-success"
+            >
+              <AddToCartHandler
+                prodId={id}
+                prodQty={1}
+                navCart={false}
+                product={title}
+              />
             </Button>
           </Card.Body>
         </Col>

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
 // Importing Icons
 import { IoSearch } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -15,11 +17,28 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Logout from "./Logout";
 //
 import { useGetAllCategoryQuery } from "../../source/api/CategoryApi";
+import { useGetCartItemsFromIdQuery } from "../../source/api/CartApi";
+import { useGetSearchAllProductQuery } from "../../source/api/ProductsApi";
 
 function Header() {
   let expand = "md";
 
+  const { cartId } = useSelector((state) => state.cart);
+
+  // console.log(cartId);
+
+  const state_cart_id = cartId.cart_id;
+
   const { data } = useGetAllCategoryQuery() || [];
+  const { data: cartItemsData } =
+    useGetCartItemsFromIdQuery(state_cart_id) || [];
+
+  const [searchInput, setSearchInput] = useState("");
+  let searchValue = "?search=" + searchInput;
+  console.log(searchValue);
+
+  const { data: productsData } = useGetSearchAllProductQuery(searchValue) || [];
+  console.log(productsData);
 
   const CategoryList = () => {
     return (
@@ -44,6 +63,7 @@ function Header() {
     <>
       <Navbar
         key={expand}
+        fixed="top"
         expand={expand}
         variant="primary"
         className="bg-body-tertiary mb-3"
@@ -53,7 +73,14 @@ function Header() {
         <Container fluid="lg">
           <Nav className="d-flex flex-row gap-2">
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Brand href="/">LOGO</Navbar.Brand>
+            <Navbar.Brand href="/">
+              {" "}
+              <strong>
+                {" "}
+                L<span className="text-warning">O</span>G
+                <span className="text-warning">O</span>
+              </strong>
+            </Navbar.Brand>
           </Nav>
           <Nav className="d-flex flex-row gap-3 d-md-none">
             <Nav.Link href="#" className="">
@@ -63,11 +90,26 @@ function Header() {
               <FaRegUser size={20} color="#171717" />
             </Nav.Link>
             <Nav.Link href="/cart" className="">
-              <MdOutlineShoppingCart
-                className="headIcon"
-                size={20}
-                color="#171717"
-              />
+              <div className=" position-relative">
+                <MdOutlineShoppingCart
+                  className="headIcon"
+                  size={20}
+                  color="#171717"
+                />
+                {cartItemsData && (
+                  <span
+                    className="bg-warning px-1 rounded-5 "
+                    style={{
+                      fontSize: "10px",
+                      position: "absolute",
+                      right: "-2px",
+                      top: "-3px",
+                    }}
+                  >
+                    {cartItemsData.length}
+                  </span>
+                )}
+              </div>
             </Nav.Link>
           </Nav>
           <Navbar.Offcanvas
@@ -77,19 +119,32 @@ function Header() {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                <h4>LOGO</h4>
+                <Nav.Link href="/">
+                  <strong>
+                    {" "}
+                    L<span className="text-warning">O</span>G
+                    <span className="text-warning">O</span>
+                  </strong>
+                </Nav.Link>
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1">
+              <Nav
+                variant="warning"
+                className="justify-content-end flex-grow-1"
+              >
                 <Form className="d-flex">
-                  <Form.Control
+                  <input
                     type="search"
                     placeholder="Search"
-                    className="me-2"
+                    className="me-2 px-2 bg-white rounded border-light-subtle"
                     aria-label="Search"
+                    variant="warning"
+                    style={{ outline: "none" }}
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
                   />
-                  <Button variant="outline-success">Search</Button>
+                  <Button variant="warning">Search</Button>
                 </Form>
                 <NavDropdown
                   title={
@@ -116,11 +171,26 @@ function Header() {
                   href="/cart"
                   className="d-none d-md-flex gap-1 mt-1 mx-0"
                 >
-                  <MdOutlineShoppingCart
-                    className="headIcon"
-                    size={20}
-                    color="#171717"
-                  />
+                  <div className=" position-relative">
+                    <MdOutlineShoppingCart
+                      className="headIcon"
+                      size={20}
+                      color="#171717"
+                    />
+                    {cartItemsData && (
+                      <span
+                        className="bg-warning px-1 rounded-5 "
+                        style={{
+                          fontSize: "10px",
+                          position: "absolute",
+                          right: "-2px",
+                          top: "-3px",
+                        }}
+                      >
+                        {cartItemsData.length}
+                      </span>
+                    )}
+                  </div>
                   <span>Cart</span>
                 </Nav.Link>
                 <CategoryList />

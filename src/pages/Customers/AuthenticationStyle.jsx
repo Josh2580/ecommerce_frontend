@@ -24,8 +24,8 @@ export const Login = styled.div`
 
 export const RegisterStyle = styled(Login)`
   height: 100%;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  /* margin-top: 2rem;
+  margin-bottom: 2rem; */
 `;
 
 export const DetailForm = styled.form`
@@ -49,11 +49,11 @@ export const DetailForm = styled.form`
 export const Input = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 100%;
   margin: auto;
-  padding-top: 1rem;
-  gap: 0.5rem;
+  /* padding-top: 1rem; */
+  /* gap: 0.5rem; */
   input,
   select {
     border-radius: 10px;

@@ -93,7 +93,7 @@ const CheckoutPage = () => {
   const rootURL = urlObject.origin;
 
   // Now, 'rootURL' contains the root URL (e.g., http://localhost:3000)
-  console.log(rootURL);
+  // console.log(rootURL);
   // //
   // //
 

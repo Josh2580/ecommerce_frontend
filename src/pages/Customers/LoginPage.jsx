@@ -116,12 +116,15 @@ const LoginPage = () => {
             <span>
               <i>Don't have account yet? </i>
             </span>
-            <LinkStyle to="/register"> Register</LinkStyle>
+            <LinkStyle className="text-success" to="/register">
+              {" "}
+              Register
+            </LinkStyle>
           </p>
           <ToastContainer />
 
           <TheButtons>
-            <Button>Login</Button>
+            <Button className="bg-success">Login</Button>
           </TheButtons>
           {/* <input
             type="button"

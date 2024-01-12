@@ -3,7 +3,10 @@ import { RootApi } from "./RootApi";
 const productsApi = RootApi.injectEndpoints({
   endpoints: (build) => ({
     getAllProduct: build.query({
-      query: () => "products/all/",
+      query: () => `products/all/`,
+    }),
+    getSearchAllProduct: build.query({
+      query: (searchValue) => `products/all/${searchValue}`,
     }),
     getProductById: build.query({
       query: (id) => `products/all/${id}/`,
@@ -36,6 +39,7 @@ const productsApi = RootApi.injectEndpoints({
 
 export const {
   useGetAllProductQuery,
+  useGetSearchAllProductQuery,
   useGetProductByIdQuery,
   useGetProductColorsQuery,
   useGetProductSizesQuery,

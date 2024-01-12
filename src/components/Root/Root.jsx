@@ -7,10 +7,10 @@ import Footer from "./Footer";
 
 const Root = () => {
   return (
-    <RootStyle>
+    <RootStyle className="bg-light">
       <div>
         <Header />
-        <div className="render">
+        <div className="render mt-5 pt-4">
           <Container fluid="lg">
             <Outlet />
           </Container>

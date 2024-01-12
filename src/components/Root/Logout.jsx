@@ -21,9 +21,9 @@ const Logout = () => {
 
   return (
     <>
-      <Button variant="outline-warning" onClick={() => handleLogout()}>
-        Logout
-      </Button>
+      <div className="text-warning" onClick={() => handleLogout()}>
+        <strong> Logout</strong>
+      </div>
     </>
   );
 };

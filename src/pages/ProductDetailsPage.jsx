@@ -170,7 +170,7 @@ const ProductDetailsPage = () => {
       ) : isError ? (
         <h1>error</h1>
       ) : (
-        <ProductDetailStyle>
+        <ProductDetailStyle className="bg-white p-2 rounded">
           <Top>
             <Left>
               <ImageDisplay />
@@ -184,7 +184,7 @@ const ProductDetailsPage = () => {
               <p className="description">
                 Little Description{data.description}
               </p>
-              {data.color.length > 0 && (
+              {/* {data.color.length > 0 && (
                 <div className="color">
                   <p className="variantTitle">Color:</p>
                   <div className="eachColor">
@@ -200,8 +200,8 @@ const ProductDetailsPage = () => {
                     </SelectStyled>
                   </div>
                 </div>
-              )}
-              {data.size.length > 0 && (
+              )} */}
+              {/* {data.size.length > 0 && (
                 <div className="size">
                   <p className="variantTitle">Size:</p>
 
@@ -221,9 +221,9 @@ const ProductDetailsPage = () => {
                     ))}
                   </SelectStyled>
                 </div>
-              )}
+              )} */}
 
-              {data.quality.length > 0 && (
+              {/* {data.quality.length > 0 && (
                 <div className="size">
                   <p className="variantTitle">Grade:</p>
 
@@ -239,7 +239,7 @@ const ProductDetailsPage = () => {
                     ))}
                   </SelectStyled>
                 </div>
-              )}
+              )} */}
               <div className="qty">
                 <p className="variantTitle">Qty:</p>
                 <SelectStyled
@@ -254,7 +254,7 @@ const ProductDetailsPage = () => {
                 </SelectStyled>
               </div>
 
-              <ButtonStyle>
+              <ButtonStyle className="bg-success">
                 <AddToCartHandler
                   prodId={data.id}
                   prodQty={selectedQuantity}
