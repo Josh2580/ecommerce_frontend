@@ -84,7 +84,7 @@ const LoginPage = () => {
   return (
     <Login>
       <DetailForm onSubmit={SubmitHandler}>
-        <h1>Customers Login Page</h1>
+        <h3 className=" text-center"> Login</h3>
         <div>
           <Input>
             <label htmlFor="email">Email</label>
@@ -123,8 +123,8 @@ const LoginPage = () => {
           </p>
           <ToastContainer />
 
-          <TheButtons>
-            <Button className="bg-success">Login</Button>
+          <TheButtons className=" m-0">
+            <Button className="bg-success m-0">Login</Button>
           </TheButtons>
           {/* <input
             type="button"

@@ -254,7 +254,7 @@ const ProductDetailsPage = () => {
                 </SelectStyled>
               </div>
 
-              <ButtonStyle className="bg-success">
+              <ButtonStyle className="bg-success border-0 text-white">
                 <AddToCartHandler
                   prodId={data.id}
                   prodQty={selectedQuantity}

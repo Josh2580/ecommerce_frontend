@@ -79,11 +79,11 @@ const RegisterPage = () => {
   };
 
   useEffect(() => {
-    // setEmail("");
-    // setPassword("");
-    // setConfirmPassword("");
-    // setFirst_name("");
-    // setLast_Name("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setFirst_name("");
+    setLast_Name("");
   }, []);
 
   let symbols = "!@#$%^&*()-=_+[]{ };':|,./<>?|`~";
@@ -91,7 +91,7 @@ const RegisterPage = () => {
   return (
     <RegisterStyle>
       <DetailForm as="form" onSubmit={SubmitHandler}>
-        <h3>Register </h3>
+        <h3 className=" text-center">Register </h3>
         <div className="d-flex flex-column gap-3">
           <Input>
             <label htmlFor="email">Email</label>
@@ -196,12 +196,10 @@ const RegisterPage = () => {
             </LinkStyle>
           </p>
 
-          <>
-            <Button className="w-100 fw-bolder bg-success border-0">
-              Register
-            </Button>
-            <ToastContainer />
-          </>
+          <Button className="w-100 fw-bolder bg-success border-0 m-0">
+            Register
+          </Button>
+          <ToastContainer />
         </div>
       </DetailForm>
     </RegisterStyle>

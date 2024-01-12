@@ -93,18 +93,20 @@ const CartPage = () => {
 
   return (
     <CartStyle>
-      <button>Continue Shopping</button>
+      <h6 onClick={() => navigate("/")} className="text-success px-1">
+        Continue Shopping
+      </h6>
       <CartBody>
         <ToastContainer />
 
         <CartDetails>
-          <div className="header">
+          <div className="header bg-success text-white">
             <p className="proDetails">Product Details</p>
             <p className="proQty">Quantity</p>
             <p className="proPrice">Price</p>
             <p className="proAction">Action</p>
           </div>
-          <div className="productsInfo ">
+          <div className="productsInfo fw-bold">
             {/* {CartData &&
               CartData.items.map((prod, i) => ( */}
             {data &&
@@ -112,15 +114,13 @@ const CartPage = () => {
                 <div className="eachProd" key={i}>
                   <div className="basicInfo">
                     <img src={prod.product.image} alt={prod.product.title} />
-                    <div className="prodVariant ">
-                      <p className="prodName ">{prod.product.title}</p>
-                      {/* <p>color: {prod.selectedColor}</p> */}
-                      {/* <p>size: {prod.selectedSize}</p> */}
+                    <div className="prodVariant d-flex flex-column gap-0 h-0">
+                      <p className="prodName m-0">{prod.product.title}</p>
                       <p>Unit Price: {prod.product.price}</p>
                     </div>
                   </div>
 
-                  <p className="proQty">
+                  <p className="proQty m-0">
                     <QtySelectStyled
                       id={prod.id}
                       onChange={(e) => UpdateCartItemHandler(e)}
@@ -134,16 +134,16 @@ const CartPage = () => {
                       ))}
                     </QtySelectStyled>
                   </p>
-                  <p className="proPrice">{prod.sub_total}</p>
+                  <p className="proPrice m-0">{prod.sub_total}</p>
 
                   <div className="proAction">
                     <p
-                      className="remove"
+                      className="remove border-0 border-warning text-warnin fw-bold m-0"
                       onClick={() => removeCartItemHandler({ prod: prod })}
                     >
                       Remove item
                     </p>
-                    <p className="save">Save for Later</p>
+                    {/* <p className="save">Save for Later</p> */}
                   </div>
                 </div>
               ))}
@@ -170,7 +170,12 @@ const CartPage = () => {
             <p>Total</p>
             {CartData && CartData.grand_total}
           </div>
-          <ButtonStyle onClick={() => ChechoutHandler()}>Checkout</ButtonStyle>
+          <ButtonStyle
+            className="bg-success text-white border-0 w-100"
+            onClick={() => ChechoutHandler()}
+          >
+            Checkout
+          </ButtonStyle>
         </CartSummary>
       </CartBody>
     </CartStyle>
@@ -211,15 +216,16 @@ const CartDetails = styled.div`
     .proQty,
     .proPrice,
     .proAction {
-      /* background: #ebd2b1; */
       width: 100px;
       text-align: center;
       .remove {
         font-size: 14px;
         /* margin-bottom: 5px; */
-        padding: 3px;
+        padding: 0px;
+        color: #fcbf06;
+
         &:hover {
-          background: #e42f2f;
+          background: #fcbf06;
           border-radius: 5px;
           color: white;
         }
@@ -304,7 +310,7 @@ const CartDetails = styled.div`
         .basicInfo {
           display: flex;
           width: fit-content;
-          gap: 0.5rem;
+          /* gap: 0.5rem; */
           /* background-color: #f18888; */
         }
         .prodName {

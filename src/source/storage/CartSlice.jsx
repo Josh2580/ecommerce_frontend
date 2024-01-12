@@ -38,10 +38,10 @@ const CartSlice = createSlice({
     },
 
     deleteCart: (state) => {
-      state.cartItems = localStorage.removeItem("cartItems");
-      state.cartItems = [];
+      localStorage.removeItem("cartItems");
+      state.cart.cartItems = [];
       localStorage.removeItem("state_cart_id");
-      state.cartId = [];
+      state.cart.cartId = [];
     },
   },
 });

@@ -411,7 +411,7 @@ const CheckoutPage = () => {
                   <div className="info">
                     <img src={prod.product.image} alt={prod.product.title} />
                     <div>
-                      <p>{prod.product.title}</p>
+                      <p className="">{prod.product.title}</p>
                       <p>Qty: {prod.quantity}</p>
                     </div>
                   </div>
@@ -426,9 +426,9 @@ const CheckoutPage = () => {
             )}
 
             <ButtonStyle
-              // onClick={(event) => PlaceOrderHandler(event)}
               width="100%"
               disabled={loading}
+              className="bg-success text-white border-0"
             >
               {loading && (
                 <Spinner
@@ -441,14 +441,6 @@ const CheckoutPage = () => {
               )}
               {loading ? "Loading..." : "Place Order"}
             </ButtonStyle>
-            {/* <Button
-              as="input"
-              // type="button"
-              value={loading ? "Loading..." : "Place Order"}
-            /> */}
-            {/* <Button as="button">
-              {loading ? "Loading..." : "Place Order"}
-            </Button> */}
           </OrderDetailsStyle>
         </Col>
       </Row>
