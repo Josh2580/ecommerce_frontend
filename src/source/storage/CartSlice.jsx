@@ -39,9 +39,10 @@ const CartSlice = createSlice({
 
     deleteCart: (state) => {
       localStorage.removeItem("cartItems");
-      state.cart.cartItems = [];
+      state.cartItems = [];
       localStorage.removeItem("state_cart_id");
-      state.cart.cartId = [];
+      state.cartId = [];
+      console.log("Item deleted");
     },
   },
 });

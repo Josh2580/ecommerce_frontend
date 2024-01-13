@@ -48,7 +48,7 @@ const LoginPage = () => {
     formData.append("password", loginFormData.password);
 
     result = await loginUser({ formData });
-    console.log(result);
+    // console.log(result);
 
     if (result.data) {
       // Notification Message

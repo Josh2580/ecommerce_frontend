@@ -167,7 +167,7 @@ const CheckoutPage = () => {
       let orderNow = await createOrder({ formData: cartFormData });
       // createOrder({ formData: cartFormData });
       if (orderNow) {
-        dispatch(deleteCart);
+        dispatch(deleteCart());
         const paymentFormData = new FormData();
         paymentFormData.append("payment_method", inputData.payment_method);
         updateOrderPayment({

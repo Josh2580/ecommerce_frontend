@@ -93,7 +93,7 @@ const CartPage = () => {
 
   return (
     <CartStyle>
-      <h6 onClick={() => navigate("/")} className="text-success px-1">
+      <h6 onClick={() => navigate("/")} className="text-success px-1 mb-3">
         Continue Shopping
       </h6>
       <CartBody>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Snippet from "../components/snippets/Snippet";
 import { styled } from "styled-components";
 import { useGetAllProductQuery } from "../source/api/ProductsApi";
@@ -7,8 +7,14 @@ import CategoryList from "../components/CategoryList";
 import Spinner from "react-bootstrap/Spinner";
 
 const HomePage = () => {
-  const { data: allData, isSuccess } = useGetAllProductQuery();
+  const { data, isSuccess } = useGetAllProductQuery();
   const { isSuccess: categoryIsSuccess } = useGetAllCategoryQuery();
+
+  const [allData, setAllData] = useState();
+
+  useEffect(() => {
+    setAllData(data);
+  }, [data]);
 
   return (
     <div>
@@ -17,7 +23,7 @@ const HomePage = () => {
       </CategorySnippetStyle>
 
       <AllSnippet>
-        {isSuccess ? (
+        {isSuccess && allData ? (
           <>
             {allData.map((product) => (
               <Snippet key={product.id} props={product} />

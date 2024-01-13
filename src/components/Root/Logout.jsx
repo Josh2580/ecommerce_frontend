@@ -21,7 +21,7 @@ const Logout = () => {
 
   return (
     <>
-      <div className="text-warning" onClick={() => handleLogout()}>
+      <div className="text-success" onClick={() => handleLogout()}>
         <strong> Logout</strong>
       </div>
     </>

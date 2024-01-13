@@ -35,10 +35,10 @@ function Header() {
 
   const [searchInput, setSearchInput] = useState("");
   let searchValue = "?search=" + searchInput;
-  console.log(searchValue);
+  // console.log(searchValue);
 
   const { data: productsData } = useGetSearchAllProductQuery(searchValue) || [];
-  console.log(productsData);
+  // console.log(productsData);
 
   const CategoryList = () => {
     return (
@@ -77,8 +77,9 @@ function Header() {
               {" "}
               <strong>
                 {" "}
-                L<span className="text-warning">O</span>G
-                <span className="text-warning">O</span>
+                L<span className="text-success">O</span>
+                <span className="text-warning">G</span>
+                <span className="text-success">O</span>
               </strong>
             </Navbar.Brand>
           </Nav>
@@ -122,8 +123,9 @@ function Header() {
                 <Nav.Link href="/">
                   <strong>
                     {" "}
-                    L<span className="text-warning">O</span>G
-                    <span className="text-warning">O</span>
+                    L<span className="text-success">O</span>
+                    <span className="text-warning">G</span>
+                    <span className="text-success">O</span>
                   </strong>
                 </Nav.Link>
               </Offcanvas.Title>
@@ -144,7 +146,7 @@ function Header() {
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                   />
-                  <Button variant="warning">Search</Button>
+                  <Button variant="success">Search</Button>
                 </Form>
                 <NavDropdown
                   title={
