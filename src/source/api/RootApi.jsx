@@ -5,8 +5,8 @@ import { logout, login } from "../storage/AuthSlice";
 const baseQuery = fetchBaseQuery({
   // reducerPath: "RootApi",
   // baseQuery: fetchBaseQuery({
-  // baseUrl: "https://ecommerce-web-ev3g.onrender.com/api/",
-  baseUrl: "http://127.0.0.1:8000/api/",
+  baseUrl: "https://ecommerce-web-ev3g.onrender.com/api/",
+  // baseUrl: "http://127.0.0.1:8000/api/",
   // credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const access = getState().auth.access || "";
