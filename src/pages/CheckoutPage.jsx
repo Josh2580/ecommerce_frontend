@@ -51,6 +51,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useGetUserProfileQuery } from "../source/api/authenticationApi";
 import { deleteCart } from "../source/storage/CartSlice";
 //
+import ProImg from "../assets/product-1.jpg";
 
 // console.log("All Countries", Country.getAllCountries());
 // console.log("All States", State.getAllStates());
@@ -409,7 +410,10 @@ const CheckoutPage = () => {
               CartItems.map((prod) => (
                 <div key={prod.id} className="eachProduct">
                   <div className="info">
-                    <img src={prod.product.image} alt={prod.product.title} />
+                    <img
+                      src={prod.product.id == 1 ? prod.product.image : ProImg}
+                      alt={prod.product.title}
+                    />
                     <div>
                       <p className="">{prod.product.title}</p>
                       <p>Qty: {prod.quantity}</p>

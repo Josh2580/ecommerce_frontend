@@ -3,6 +3,7 @@ import { Card, Button, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { AddToCartHandler } from "../ManageCart";
+import ProImg from "../../assets/product-1.jpg";
 
 const SimilarSnippet = ({ props, maxDescriptionLength = 50 }) => {
   const { id, title, description, price, image } = props;
@@ -22,7 +23,7 @@ const SimilarSnippet = ({ props, maxDescriptionLength = 50 }) => {
         <Col xs={12} md={12} lg={12} className="">
           <Card.Img
             variant="top"
-            src={image}
+            src={id == 1 ? image : ProImg}
             alt={title}
             className="product-image"
             onClick={() => urlHandler()}

@@ -6,6 +6,7 @@ import { ButtonStyle } from "../components/myModules/Button";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProImg from "../assets/product-1.jpg";
 
 import {
   useGetCartItemsFromIdQuery,
@@ -113,7 +114,10 @@ const CartPage = () => {
               data.map((prod, i) => (
                 <div className="eachProd" key={i}>
                   <div className="basicInfo">
-                    <img src={prod.product.image} alt={prod.product.title} />
+                    <img
+                      src={prod.product.id == 1 ? prod.product.image : ProImg}
+                      alt={prod.product.title}
+                    />
                     <div className="prodVariant d-flex flex-column gap-0 h-0">
                       <p className="prodName m-0">{prod.product.title}</p>
                       <p>Unit Price: {prod.product.price}</p>
