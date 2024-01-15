@@ -23,6 +23,7 @@ import {
 } from "../source/api/CartApi";
 import { AddToCartHandler } from "../components/ManageCart";
 import Spinner from "react-bootstrap/Spinner";
+import ProImg from "../assets/product-1.jpg";
 
 const ProductDetailsPage = () => {
   const navigate = useNavigate();
@@ -112,9 +113,15 @@ const ProductDetailsPage = () => {
         transitionDuration={500}
       >
         {data.product_images.map((data, index) => (
-          <img key={index} src={data.images} alt={data.name} />
+          <img
+            key={index}
+            src={data.id == 1 ? data.images : ProImg}
+            alt={data.name}
+          />
         ))}
-        {data.image.length >= 1 && <img src={data.image} alt={data.name} />}
+        {data.image.length >= 1 && (
+          <img src={data.id == 1 ? data.images : ProImg} alt={data.name} />
+        )}
       </Carousel>
     );
   };
